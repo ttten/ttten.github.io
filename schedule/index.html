@@ -8,63 +8,79 @@
 <title>千明 スケジュール</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
 <style>
-/* Layout: one narrow column for phones — a small title, then a date-led schedule list */
+/* Layout: one narrow column on white — quiet title, year tabs, then a date-led list separated by hairlines */
 :root{
-  --bg:#F2F9FC; --surface:#FFFFFF; --fg:#0E3456; --muted:#4D6F88;
-  --line:#D2E6F0; --accent:#D2544C; --leaf:#2A86C2; --sat:#2270C4; --sun:#CC3535;
-  --display:"Kaisei Decol","Hiragino Mincho ProN","Yu Mincho",serif;
+  --bg:#FFFFFF; --surface:#F5F4F8; --fg:#24222F; --muted:#75727F;
+  --line:#E9E7EE; --accent:#D2544C; --gold:#D9A520; --ink:#4B3F6B; --sat:#2270C4; --sun:#CC3535;
   --body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0A2138; --surface:#113150; --fg:#E9F5FB; --muted:#9BBDD2;
-  --line:#1F466B; --accent:#FF9A88; --leaf:#5FB8EC; --sat:#74B6FF; --sun:#FF7B7B; color-scheme:dark}}
+  --bg:#15141B; --surface:#1F1E27; --fg:#EDECF3; --muted:#9E9BAA;
+  --line:#2E2C38; --accent:#FF9A88; --gold:#F2C14E; --ink:#B8BEE3; --sat:#74B6FF; --sun:#FF7B7B; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0A2138; --surface:#113150; --fg:#E9F5FB; --muted:#9BBDD2;
-  --line:#1F466B; --accent:#FF9A88; --leaf:#5FB8EC; --sat:#74B6FF; --sun:#FF7B7B; color-scheme:dark}
-h1 small{color:var(--leaf)}
-body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.75;padding:0 16px}
-.wrap{max-width:520px;margin:0 auto;padding-block:32px 48px;display:flex;flex-direction:column;gap:20px}
-h1{font-family:var(--body);font-weight:700;font-size:18px;letter-spacing:.08em;line-height:1.3;margin:0;display:flex;align-items:baseline;gap:12px;text-wrap:balance}
-h1 small{font-family:var(--body);font-size:13px;color:var(--muted);font-weight:500;letter-spacing:.08em}
+  --bg:#15141B; --surface:#1F1E27; --fg:#EDECF3; --muted:#9E9BAA;
+  --line:#2E2C38; --accent:#FF9A88; --gold:#F2C14E; --ink:#B8BEE3; --sat:#74B6FF; --sun:#FF7B7B; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.75;padding:0 20px}
+.wrap{max-width:520px;margin:0 auto;padding-block:40px 56px;display:flex;flex-direction:column;gap:24px}
+h1{font-family:var(--body);font-weight:700;font-size:18px;letter-spacing:.12em;line-height:1.3;margin:0;text-wrap:balance}
 ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
-li.ev{display:grid;grid-template-columns:64px 1fr;gap:16px;padding-block:16px;border-top:1px solid var(--line)}
+li.ev{display:grid;grid-template-columns:56px 1fr;gap:18px;padding-block:20px;border-top:1px solid var(--line)}
 li.ev:last-child{border-bottom:1px solid var(--line)}
-.date{display:flex;flex-direction:column;align-items:center;line-height:1.1;font-variant-numeric:tabular-nums}
-.date .m{font-size:12px;color:var(--muted)}
-.date .d{font-family:var(--display);font-size:30px;font-weight:700}
-.date .w{font-size:12px;color:var(--fg);font-weight:700}
+.date{display:flex;flex-direction:column;align-items:center;line-height:1.15;font-variant-numeric:tabular-nums}
+.date .m{font-size:11px;color:var(--muted);letter-spacing:.04em}
+.date .d{font-family:var(--body);font-size:28px;font-weight:500;letter-spacing:-.01em}
+.date .w{font-size:11px;color:var(--muted);font-weight:700}
 .date .w.sat{color:var(--sat)}
 .date .w.sun{color:var(--sun)}
 .info{min-width:0;display:flex;flex-direction:column;gap:2px}
 .area{font-size:12px;color:var(--muted);letter-spacing:.06em}
-.venue{font-weight:700;font-size:16px}
+.venue{font-weight:700;font-size:16px;line-height:1.55}
 .note{font-size:13px;color:var(--muted)}
-.tag{align-self:flex-start;margin-top:4px;font-size:11px;padding:2px 8px;border-radius:4px;background:color-mix(in srgb,var(--accent) 13%,transparent);color:var(--accent);font-weight:700}
-li.ev.next{background:var(--surface);border-radius:12px;border-top-color:transparent;padding-inline:12px;margin-inline:-12px}
+.tag{align-self:flex-start;margin-top:6px;font-size:11px;padding:1px 9px;border-radius:999px;border:1px solid var(--line);color:var(--fg);font-weight:500;letter-spacing:.02em}
+li.ev.next{background:var(--surface);border-radius:10px;border-top-color:transparent;padding-inline:14px;margin-inline:-14px}
 li.ev.next + li.ev{border-top-color:transparent}
-.nextlabel{font-size:11px;color:var(--accent);font-weight:700;letter-spacing:.1em}
+li.ev.next .tag{border-color:color-mix(in srgb,var(--fg) 14%,transparent)}
+.nextlabel{font-size:10px;color:var(--accent);font-weight:700;letter-spacing:.16em}
 .empty{color:var(--muted);font-size:14px}
 footer{font-size:12px;color:var(--muted);text-align:center}
-.tabs{display:flex;gap:8px}
-.tab{font:inherit;font-size:14px;font-weight:700;font-variant-numeric:tabular-nums;padding:6px 18px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
-.tab[aria-selected="true"]{background:var(--fg);border-color:var(--fg);color:var(--bg)}
+.tabs{display:flex;gap:6px}
+.tab{font:inherit;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:.04em;padding:4px 16px;border-radius:999px;border:1px solid transparent;background:transparent;color:var(--muted);cursor:pointer}
+.tab[aria-selected="true"]{background:var(--fg);color:var(--bg)}
+.tab:not([aria-selected="true"]):hover{border-color:var(--line)}
 .tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 li.ev.off{display:none}
-li.ev.has-flyer{grid-template-columns:64px 1fr 60px}
-.thumb{padding:0;border:1px solid var(--line);border-radius:6px;background:var(--surface);cursor:zoom-in;width:60px;height:75px;overflow:hidden;align-self:start}
+li.ev.has-flyer{grid-template-columns:56px 1fr 56px}
+.thumb{padding:0;border:1px solid var(--line);border-radius:4px;background:var(--surface);cursor:zoom-in;width:56px;height:70px;overflow:hidden;align-self:start}
 .thumb img{width:100%;height:100%;object-fit:cover;display:block}
 .thumb:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.lightbox{position:fixed;inset:0;z-index:10;background:rgba(10,14,30,.92);display:flex;align-items:center;justify-content:center;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px));cursor:zoom-out}
+.lightbox{position:fixed;inset:0;z-index:10;background:rgba(16,17,18,.92);display:flex;align-items:center;justify-content:center;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px));cursor:zoom-out}
 .lightbox img{max-width:100%;max-height:100%;object-fit:contain;border-radius:4px}
 .lightbox .close{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:12px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.16);color:#fff;font-size:22px;line-height:1;cursor:pointer}
+.wrap{position:relative}
+h1{display:flex;align-items:center;gap:8px}
+footer{display:flex;flex-direction:column;align-items:center;gap:10px}
+li.month{display:flex;align-items:center;gap:8px;padding-block:28px 10px;font-size:14px;font-weight:700;letter-spacing:.1em}
+li.month.off{display:none}
+li.month + li.ev{border-top-color:var(--line)}
+li.ev:has(+ li.month){border-bottom:0}
+.date .m{display:none}
+.flock{position:absolute;top:14px;right:0;width:150px;height:90px;pointer-events:none}
+.flock use,.tui{fill:var(--ink)}
+.tui{width:24px;height:14px;flex:none}
+li.month .tui{width:22px;height:13px}
+.nami{width:96px;height:46px;opacity:.85}
+.nami path{fill:var(--ink)}
+.nextlabel{align-self:flex-start;background:var(--accent);color:var(--bg);font-size:11px;letter-spacing:.14em;padding:2px 10px 2px 11px;border-radius:999px;margin-bottom:6px;line-height:1.6}
 </style>
 </head>
 <body>
 
 
 <div class="wrap">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="tui" viewBox="0 0 40 24"><path d="M2 12 L16 10.6 L26 11.2 L38 8.4 L30 12 L38 15.6 L26 12.8 L16 13.4 Z"/><path d="M16.5 11 C11.5 7.2 13 1.6 31 1 C20.5 3 18 6.2 21 11 Z"/><path d="M16.5 13 C11.5 16.8 13 22.4 31 23 C20.5 21 18 17.8 21 13 Z"/></symbol><filter id="kasuri" x="-10%" y="-20%" width="120%" height="140%"><feTurbulence type="fractalNoise" baseFrequency="0.9 0.06" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="1.6" xChannelSelector="R" yChannelSelector="G"/></filter><filter id="kasuri2" x="-5%" y="-10%" width="110%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.6 0.02" numOctaves="2" seed="5"/><feDisplacementMap in="SourceGraphic" scale="6" xChannelSelector="R" yChannelSelector="G"/></filter></defs></svg>
+  <svg class="flock" viewBox="0 0 150 90" aria-hidden="true"><g filter="url(#kasuri)"><use href="#tui" x="4" y="66" width="16.8" height="10.1"/><use href="#tui" x="40" y="50" width="22.0" height="13.2"/><use href="#tui" x="78" y="32" width="28.0" height="16.8"/><use href="#tui" x="114" y="10" width="34.4" height="20.6"/></g></svg>
   <h1>ライブ予定</h1>
   <div class="tabs" role="tablist" aria-label="年">
     <button type="button" role="tab" class="tab" id="tab-2026" data-year="2026">2026</button>
@@ -82,10 +98,10 @@ li.ev.has-flyer{grid-template-columns:64px 1fr 60px}
     <li class="ev has-flyer" data-date="2026-12-18"><div class="date"><span class="m">12月</span><span class="d">18</span><span class="w">金</span></div><div class="info"><span class="area">鶴見</span><span class="venue">ななまかい</span><span class="note">19時スタート・投げ銭制</span><span class="tag">月桃〜san nin〜</span></div><button class="thumb" type="button" data-full="images/flyer-1218.jpg" aria-label="12/18のフライヤーを拡大"><img src="images/flyer-1218-thumb.jpg" alt="12/18 ななまかいLive フライヤー"></button></li>
     <li class="ev has-flyer" data-date="2026-12-26"><div class="date"><span class="m">12月</span><span class="d">26</span><span class="w">土</span></div><div class="info"><span class="area">亀戸</span><span class="venue">ちゃたん</span><span class="note">17時開店・19時スタート・投げ銭</span><span class="tag">月桃〜san nin〜</span></div><button class="thumb" type="button" data-full="images/flyer-1226.jpg" aria-label="12/26のフライヤーを拡大"><img src="images/flyer-1226-thumb.jpg" alt="12/26 ちゃたんライブ フライヤー"></button></li>
     <li class="ev" data-date="2026-12-29"><div class="date"><span class="m">12月</span><span class="d">29</span><span class="w">火</span></div><div class="info"><span class="venue">調整中</span><!--<span class="tag">ソロ</span>--></div></li>
-    <li class="ev has-flyer" data-date="2027-01-30"><div class="date"><span class="m">1月</span><span class="d">30</span><span class="w">土</span></div><div class="info"><span class="area">鶴見</span><span class="venue">ななまかい</span><span class="note">19時スタート・投げ銭制</span><span class="tag">ひがよしひろ × 月桃〜san nin〜</span></div><button class="thumb" type="button" data-full="images/flyer-270130.jpg" aria-label="1/30のフライヤーを拡大"><img src="images/flyer-270130-thumb.jpg" alt="1/30 ひがよしひろ × 月桃〜san nin〜 フライヤー"></button></li>
+    <li class="ev has-flyer" data-date="2027-01-30"><div class="date"><span class="m">1月</span><span class="d">30</span><span class="w">土</span></div><div class="info"><span class="area">鶴見</span><span class="venue">ななまかい</span><span class="note">19時スタート・投げ銭制</span><span class="tag">ひがよしひろ × 月桃〜san nin〜</span></div><button class="thumb" type="button" data-full="images/flyer-0130.jpg" aria-label="1/30のフライヤーを拡大"><img src="images/flyer-0130-thumb.jpg" alt="1/30 ひがよしひろ × 月桃〜san nin〜 フライヤー"></button></li>
   </ol>
   <p class="empty" id="empty" hidden>次の予定は近日お知らせします。</p>
-  <footer>ご予約・お問い合わせは各お店、または各SNSのDMへ</footer>
+  <footer><svg class="nami" viewBox="40 20 1000 500" aria-hidden="true"><g filter="url(#kasuri2)"><path d="M130 49 L137 50 L147 51 L158 52 L171 53 L184 54 L198 55 L212 56 L226 57 L238 59 L249 60 L260 62 L270 64 L279 65 L288 67 L297 69 L306 71 L314 73 L322 76 L329 78 L336 80 L343 83 L350 86 L357 89 L363 92 L369 95 L374 98 L379 101 L382 103 L383 104 L382 104 L381 101 L380 96 L381 92 L382 90 L383 89 L383 91 L381 92 L379 95 L376 97 L372 100 L368 102 L363 105 L357 108 L350 110 L342 113 L334 116 L325 119 L316 122 L307 125 L297 128 L286 131 L275 133 L263 136 L251 139 L238 142 L225 145 L212 147 L199 150 L187 153 L176 155 L165 158 L154 160 L143 162 L132 165 L121 167 L111 170 L101 172 L92 174 L84 176 L77 178 L72 181 L67 183 L62 185 L57 187 L52 192 L47 199 L45 211 L48 222 L53 228 L58 231 L63 234 L68 236 L74 238 L80 239 L86 241 L93 242 L101 243 L109 244 L118 245 L127 247 L137 248 L148 249 L160 250 L172 251 L185 252 L199 253 L213 254 L227 255 L243 257 L258 259 L275 261 L293 264 L311 267 L331 270 L351 274 L371 277 L391 281 L410 284 L430 288 L448 291 L466 294 L484 298 L502 301 L520 304 L537 308 L554 311 L571 315 L587 318 L603 321 L618 324 L632 327 L646 329 L659 332 L672 334 L684 336 L696 339 L707 341 L717 343 L727 345 L736 348 L744 350 L753 353 L760 355 L767 357 L773 360 L778 362 L781 364 L784 365 L784 365 L782 363 L781 359 L781 354 L782 351 L783 350 L782 351 L781 354 L778 356 L774 359 L770 362 L765 365 L759 368 L753 371 L746 374 L737 377 L729 380 L719 384 L709 387 L699 390 L688 393 L677 396 L665 399 L652 401 L638 404 L624 407 L609 409 L595 412 L580 414 L566 416 L553 419 L542 421 L531 423 L520 425 L510 426 L499 428 L490 430 L481 431 L472 433 L465 435 L457 438 L450 442 L444 449 L439 458 L439 469 L442 477 L447 483 L452 487 L457 491 L462 494 L468 496 L474 498 L481 500 L488 501 L496 503 L505 504 L514 504 L523 505 L532 506 L541 506 L550 507 L559 507 L568 507 L578 508 L587 508 L597 508 L607 508 L617 508 L625 508 L633 507 L640 507 L645 507 L645 505 L640 504 L633 503 L626 502 L617 501 L608 500 L598 499 L588 498 L579 496 L569 495 L561 493 L553 491 L544 489 L535 487 L526 485 L518 482 L510 480 L502 477 L496 475 L490 472 L486 470 L482 467 L479 465 L477 463 L475 461 L475 460 L476 460 L477 463 L477 468 L475 472 L474 474 L475 473 L478 472 L483 469 L490 467 L498 465 L507 462 L517 459 L527 457 L538 454 L548 451 L560 448 L572 445 L586 442 L600 439 L615 436 L629 432 L644 429 L658 426 L671 423 L683 420 L694 418 L705 415 L716 412 L727 410 L737 408 L746 405 L755 403 L764 400 L772 398 L779 395 L786 393 L792 390 L798 387 L803 384 L809 380 L814 375 L818 369 L821 361 L822 350 L818 341 L812 334 L806 329 L799 326 L793 324 L786 321 L778 319 L770 318 L762 316 L753 314 L744 312 L734 310 L724 309 L713 307 L701 306 L689 305 L677 303 L664 302 L650 300 L637 298 L622 296 L607 294 L592 292 L576 289 L559 286 L542 284 L524 281 L506 278 L488 275 L470 272 L452 269 L433 266 L414 263 L394 259 L374 256 L354 253 L334 249 L315 246 L296 243 L278 240 L262 237 L246 234 L231 232 L216 229 L202 227 L189 224 L176 222 L164 220 L153 218 L142 216 L133 213 L124 211 L116 209 L108 207 L102 205 L96 203 L91 201 L87 200 L84 198 L82 197 L82 197 L83 197 L85 200 L88 208 L86 217 L83 222 L82 223 L83 223 L85 221 L88 220 L93 218 L98 215 L105 212 L113 209 L121 206 L131 203 L141 199 L152 195 L162 192 L173 188 L184 185 L195 182 L207 178 L219 175 L231 171 L244 168 L257 164 L269 161 L281 158 L293 155 L303 152 L313 150 L323 148 L332 146 L341 144 L350 142 L359 140 L367 139 L374 137 L381 135 L388 132 L394 130 L399 127 L405 124 L410 121 L415 117 L419 111 L423 104 L424 94 L422 84 L418 76 L412 70 L406 66 L399 63 L392 60 L385 57 L377 55 L369 53 L361 51 L352 49 L344 48 L336 47 L327 46 L318 45 L310 44 L300 44 L291 44 L281 44 L271 44 L261 44 L251 44 L239 44 L226 44 L213 44 L199 44 L184 45 L171 45 L158 46 L147 46 L137 46 L130 47Z"/><path d="M345 41 L352 42 L361 43 L372 44 L384 45 L397 46 L410 47 L424 48 L437 49 L449 51 L459 52 L469 54 L478 56 L487 57 L496 59 L504 61 L512 63 L520 65 L527 68 L534 70 L541 72 L548 75 L554 78 L561 81 L568 84 L574 87 L579 90 L584 93 L587 95 L588 96 L587 96 L586 93 L585 88 L586 84 L587 82 L588 81 L588 82 L586 84 L584 87 L581 89 L577 92 L573 94 L567 97 L561 100 L555 103 L547 106 L539 109 L530 112 L521 115 L512 118 L502 121 L491 124 L480 126 L468 129 L456 132 L443 134 L430 137 L417 140 L405 142 L393 145 L381 147 L370 150 L359 152 L348 154 L337 157 L326 159 L316 161 L306 164 L297 166 L289 168 L282 171 L276 173 L271 175 L266 177 L262 180 L257 185 L252 192 L250 204 L253 214 L258 220 L263 224 L268 227 L273 229 L279 231 L285 232 L291 233 L298 234 L306 235 L314 236 L323 237 L332 239 L343 240 L354 241 L366 242 L379 243 L393 244 L407 245 L422 246 L437 247 L452 249 L468 251 L485 253 L503 256 L522 259 L541 262 L561 266 L581 269 L601 273 L621 276 L640 280 L658 283 L676 286 L694 290 L712 293 L730 296 L747 300 L764 303 L781 306 L797 310 L813 313 L828 316 L842 319 L856 321 L869 324 L882 327 L895 329 L906 332 L917 334 L927 337 L937 339 L945 342 L953 344 L961 347 L967 350 L973 352 L978 355 L982 357 L985 359 L987 361 L987 361 L986 359 L985 356 L986 353 L986 351 L987 350 L987 351 L985 353 L983 356 L980 359 L975 362 L971 365 L965 368 L958 371 L950 375 L942 378 L932 381 L923 385 L913 388 L902 392 L892 395 L882 398 L871 401 L860 404 L849 407 L837 409 L826 412 L814 415 L802 417 L791 420 L781 422 L771 424 L762 427 L753 428 L744 430 L736 432 L728 434 L720 435 L713 437 L706 439 L700 442 L694 446 L688 452 L684 459 L684 469 L686 476 L691 482 L695 486 L700 489 L706 492 L712 494 L718 495 L724 497 L732 498 L739 498 L748 499 L757 500 L767 500 L777 500 L787 501 L798 501 L810 501 L822 501 L837 501 L852 501 L869 501 L885 501 L902 500 L917 500 L930 500 L941 500 L950 499 L950 497 L941 496 L930 495 L917 495 L902 494 L886 493 L869 492 L853 491 L837 490 L823 488 L810 487 L799 486 L789 484 L778 482 L769 480 L760 479 L751 477 L744 475 L737 473 L731 471 L726 469 L722 467 L719 465 L717 463 L716 462 L717 461 L718 462 L719 465 L719 470 L718 473 L716 474 L717 474 L720 472 L724 470 L730 468 L737 465 L744 463 L752 460 L761 457 L770 454 L779 452 L788 449 L798 446 L809 443 L820 440 L832 437 L843 434 L855 431 L867 428 L878 425 L888 422 L899 419 L909 417 L920 414 L931 411 L941 409 L951 406 L961 404 L970 401 L978 398 L985 395 L992 392 L998 389 L1004 386 L1010 382 L1015 378 L1019 373 L1024 367 L1026 359 L1027 350 L1024 341 L1019 334 L1014 328 L1008 324 L1002 321 L995 318 L988 316 L980 313 L972 311 L964 309 L955 306 L945 304 L935 302 L924 301 L912 299 L900 297 L887 296 L874 294 L861 292 L847 290 L832 288 L818 286 L802 283 L786 281 L769 278 L752 275 L734 273 L716 270 L698 267 L680 264 L662 261 L643 258 L624 255 L605 251 L585 248 L565 245 L545 241 L525 238 L507 235 L489 232 L472 229 L456 226 L440 224 L425 221 L410 219 L396 216 L383 214 L370 212 L358 210 L348 208 L338 205 L329 203 L320 201 L313 199 L306 198 L300 196 L295 194 L291 192 L289 191 L287 190 L287 190 L288 190 L291 194 L293 201 L292 210 L289 214 L288 215 L288 215 L290 213 L294 212 L298 209 L303 207 L310 204 L318 201 L326 198 L336 194 L346 191 L357 187 L367 184 L378 180 L389 177 L400 174 L411 170 L424 167 L436 164 L449 160 L462 157 L474 154 L486 151 L498 148 L508 145 L518 143 L528 141 L537 138 L547 137 L555 135 L564 133 L572 131 L580 129 L587 127 L593 124 L599 122 L604 119 L610 116 L615 113 L620 109 L624 103 L628 96 L629 86 L627 76 L623 68 L617 62 L610 58 L604 55 L597 52 L589 49 L582 47 L574 45 L565 43 L557 41 L549 40 L541 39 L533 38 L525 37 L516 36 L508 36 L499 36 L490 36 L480 36 L471 36 L461 36 L450 36 L437 36 L424 36 L411 36 L397 37 L384 37 L372 38 L361 38 L352 38 L345 39Z"/></g></svg>ご予約・お問い合わせは各お店、または各SNSのDMへ</footer>
 </div>
 <div class="lightbox" id="lb" hidden role="dialog" aria-modal="true" aria-label="フライヤー">
   <button class="close" id="lbClose" type="button" aria-label="閉じる">×</button>
@@ -121,14 +137,28 @@ li.ev.has-flyer{grid-template-columns:64px 1fr 60px}
     var lab=document.createElement('span');lab.className='nextlabel';lab.textContent='NEXT';
     first.querySelector('.info').prepend(lab);
   }
-  var items=[].slice.call(document.querySelectorAll('#list li.ev'));
+  // month headings: one per month that still has upcoming events
+  var tpl=document.createElement('div');tpl.innerHTML='<svg class="tui" viewBox="0 0 40 24" aria-hidden="true"><use href="#tui"/></svg>';var flower=tpl.firstChild;
+  var seen={};
+  [].slice.call(document.querySelectorAll('#list li.ev')).forEach(function(li){
+    if(li.hidden)return;
+    var ym=li.dataset.date.slice(0,7);
+    if(seen[ym])return; seen[ym]=true;
+    var h=document.createElement('li');
+    h.className='month'; h.dataset.date=ym+'-00';
+    if(flower)h.appendChild(flower.cloneNode(true));
+    var t=document.createElement('span'); t.textContent=parseInt(ym.slice(5),10)+'月';
+    h.appendChild(t);
+    li.parentNode.insertBefore(h,li);
+  });
+  var items=[].slice.call(document.querySelectorAll('#list li.ev, #list li.month'));
   var tabs=[].slice.call(document.querySelectorAll('.tab'));
   function show(year){
     var any=false;
     items.forEach(function(li){
       var on=li.dataset.date.slice(0,4)===year;
       li.classList.toggle('off',!on);
-      if(on&&!li.hidden)any=true;
+      if(on&&!li.hidden&&li.classList.contains('ev'))any=true;
     });
     tabs.forEach(function(t){t.setAttribute('aria-selected',t.dataset.year===year?'true':'false');});
     document.getElementById('empty').hidden=any;
