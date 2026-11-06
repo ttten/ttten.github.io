@@ -76,6 +76,14 @@ li.month .tui{width:22px;height:13px}
 .nami{width:96px;height:46px;opacity:.85}
 .nami path{fill:var(--ink)}
 .nextlabel{align-self:flex-start;background:var(--accent);color:var(--bg);font-size:11px;letter-spacing:.14em;padding:2px 10px 2px 11px;border-radius:999px;margin-bottom:6px;line-height:1.6}
+.thumb{position:relative}
+.thumb .count{position:absolute;right:3px;bottom:3px;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:rgba(20,18,30,.72);color:#fff;font-size:10px;font-weight:700;line-height:16px;text-align:center}
+.lightbox{flex-direction:column;gap:12px}
+.lightbox img{max-height:calc(100% - 56px);cursor:pointer}
+.lbnav{display:flex;align-items:center;gap:16px;color:#fff;font-size:13px;font-variant-numeric:tabular-nums}
+.lbnav button{width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.16);color:#fff;font-size:22px;line-height:1;cursor:pointer}
+.lbnav button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.tag{border-radius:10px}
 </style>
 </head>
 <body>
@@ -100,7 +108,7 @@ li.month .tui{width:22px;height:13px}
     <li class="ev has-flyer" data-date="2026-11-29"><div class="date"><span class="m">11月</span><span class="d">29</span><span class="w">日</span></div><div class="info"><span class="area">矢川（国立市）</span><span class="venue">いちゃりbar</span><span class="note">三線とハープと紙芝居のつどい</span><span class="note">演奏 15時30分〜16時30分・食事会 17時〜</span><span class="tag">三線×ハープ×紙芝居</span></div><button class="thumb" type="button" data-full="images/flyer-1129.jpg" aria-label="11/29のフライヤーを拡大"><img src="images/flyer-1129-thumb.jpg" alt="11/29 沖縄の三線と歌 紙芝居とハープのつどい フライヤー"></button></li>
     <li class="ev has-flyer" data-date="2026-12-18"><div class="date"><span class="m">12月</span><span class="d">18</span><span class="w">金</span></div><div class="info"><span class="area">鶴見</span><span class="venue">ななまかい</span><span class="note">19時スタート・投げ銭制</span><span class="tag">月桃〜san nin〜</span></div><button class="thumb" type="button" data-full="images/flyer-1218.jpg" aria-label="12/18のフライヤーを拡大"><img src="images/flyer-1218-thumb.jpg" alt="12/18 ななまかいLive フライヤー"></button></li>
     <li class="ev has-flyer" data-date="2026-12-26"><div class="date"><span class="m">12月</span><span class="d">26</span><span class="w">土</span></div><div class="info"><span class="area">亀戸</span><span class="venue">ちゃたん</span><span class="note">17時開店・19時スタート・投げ銭</span><span class="tag">月桃〜san nin〜</span></div><button class="thumb" type="button" data-full="images/flyer-1226.jpg" aria-label="12/26のフライヤーを拡大"><img src="images/flyer-1226-thumb.jpg" alt="12/26 ちゃたんライブ フライヤー"></button></li>
-    <li class="ev" data-date="2026-12-29"><div class="date"><span class="m">12月</span><span class="d">29</span><span class="w">火</span></div><div class="info"><span class="venue">調整中</span><!--<span class="tag">ソロ</span>--></div></li>
+    <li class="ev has-flyer" data-date="2026-12-29"><div class="date"><span class="m">12月</span><span class="d">29</span><span class="w">火</span></div><div class="info"><span class="area">人形町</span><span class="venue">月の箱</span><span class="note">開場 12時15分・第1部 13時〜・第2部 14時40分〜</span><span class="note">6,600円（季節の懐石弁当付き）</span><span class="tag">SHU &amp; HIDE × +3 × Gospel Friends</span></div><button class="thumb" type="button" data-full="images/flyer-1229.jpg,images/flyer-1229-2.jpg" aria-label="12/29のフライヤーを拡大（表・裏の2枚）"><img src="images/flyer-1229-thumb.jpg" alt="12/29 沖縄民謡×三線×ゴスペルライブ フライヤー"><span class="count">2</span></button></li>
     <li class="ev has-flyer" data-date="2027-01-30"><div class="date"><span class="m">1月</span><span class="d">30</span><span class="w">土</span></div><div class="info"><span class="area">鶴見</span><span class="venue">ななまかい</span><span class="note">19時スタート・投げ銭制</span><span class="tag">ひがよしひろ × 月桃〜san nin〜</span></div><button class="thumb" type="button" data-full="images/flyer-270130.jpg" aria-label="1/30のフライヤーを拡大"><img src="images/flyer-270130-thumb.jpg" alt="1/30 ひがよしひろ × 月桃〜san nin〜 フライヤー"></button></li>
   </ol>
   <p class="empty" id="empty" hidden>次の予定は近日お知らせします。</p>
@@ -109,16 +117,24 @@ li.month .tui{width:22px;height:13px}
 <div class="lightbox" id="lb" hidden role="dialog" aria-modal="true" aria-label="フライヤー">
   <button class="close" id="lbClose" type="button" aria-label="閉じる">×</button>
   <img id="lbImg" alt="">
+  <div class="lbnav" id="lbNav" hidden><button type="button" id="lbPrev" aria-label="前の画像">‹</button><span id="lbCount"></span><button type="button" id="lbNext" aria-label="次の画像">›</button></div>
 </div>
 <script>
 (function(){
-  var lb=document.getElementById('lb'),img=document.getElementById('lbImg'),last=null;
+  var lb=document.getElementById('lb'),img=document.getElementById('lbImg'),nav=document.getElementById('lbNav'),cnt=document.getElementById('lbCount'),last=null,list=[],idx=0;
+  function show(n){idx=(n+list.length)%list.length;img.src=list[idx];cnt.textContent=(idx+1)+' / '+list.length;}
   function close(){lb.hidden=true;img.removeAttribute('src');document.body.style.overflow='';if(last)last.focus();}
   document.querySelectorAll('.thumb').forEach(function(b){
-    b.addEventListener('click',function(){last=b;img.src=b.dataset.full;img.alt=b.querySelector('img').alt;lb.hidden=false;document.body.style.overflow='hidden';document.getElementById('lbClose').focus();});
+    b.addEventListener('click',function(){last=b;list=b.dataset.full.split(',');img.alt=b.querySelector('img').alt;nav.hidden=list.length<2;show(0);lb.hidden=false;document.body.style.overflow='hidden';document.getElementById('lbClose').focus();});
   });
+  img.addEventListener('click',function(e){if(list.length>1){e.stopPropagation();show(idx+1);}});
+  document.getElementById('lbPrev').addEventListener('click',function(e){e.stopPropagation();show(idx-1);});
+  document.getElementById('lbNext').addEventListener('click',function(e){e.stopPropagation();show(idx+1);});
+  var sx=null;
+  img.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;},{passive:true});
+  img.addEventListener('touchend',function(e){if(sx===null||list.length<2)return;var dx=e.changedTouches[0].clientX-sx;sx=null;if(Math.abs(dx)>40){e.preventDefault();show(idx+(dx<0?1:-1));}});
   lb.addEventListener('click',close);
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!lb.hidden)close();});
+  document.addEventListener('keydown',function(e){if(lb.hidden)return;if(e.key==='Escape')close();else if(e.key==='ArrowRight'&&list.length>1)show(idx+1);else if(e.key==='ArrowLeft'&&list.length>1)show(idx-1);});
 })();
 </script>
 
